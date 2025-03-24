@@ -136,13 +136,13 @@ export const HomePage = observer(function HomePage() {
             try {
                 await Promise.all([
                     sp(roomStore.listRooms(activeTab)),
-                    sp(roomStore.listRooms(ListRoomsType.History)),
-                ]);
+                    !isPhone && sp(roomStore.listRooms(ListRoomsType.History)),
+                ].filter(Boolean));
             } catch (e) {
                 errorTips(e);
             }
         },
-        [activeTab, roomStore, sp],
+        [activeTab, roomStore, sp, isPhone],
     );
 
     useEffect(() => {
@@ -168,12 +168,12 @@ export const HomePage = observer(function HomePage() {
     }, [refreshRooms, isLogin, globalStore.requestRefreshRooms]);
 
     const hasHistoryRooms = useMemo(() => {
-        return roomStore.historyRooms && roomStore.historyRooms.length > 0;
-    }, [roomStore.historyRooms]);
+        return !isPhone && roomStore.historyRooms && roomStore.historyRooms.length > 0;
+    }, [roomStore.historyRooms, isPhone]);
 
     const MobileLayoutContent = useMemo(() => (
         <div className="homepage-layout-mobile-container">
-            <MainRoomMenu />
+            <MainRoomMenu isPhone={isPhone} />
             <div className="homepage-layout-mobile-content">
                 <MainRoomListPanel
                     activeTab={activeTab}
@@ -181,27 +181,16 @@ export const HomePage = observer(function HomePage() {
                     roomStore={roomStore}
                     setActiveTab={setActiveTab}
                     isMobile={true}
-                    onShowHistory={() => setShowHistory(true)}
                 />
             </div>
-            {showHistory && hasHistoryRooms && (
-                <div className="homepage-layout-mobile-history">
-                    <MainRoomHistoryPanel 
-                        refreshRooms={refreshRooms} 
-                        roomStore={roomStore}
-                        isMobile={true}
-                        onClose={() => setShowHistory(false)}
-                    />
-                </div>
-            )}
             <RoomNotBeginModal />
             <AppUpgradeModal />
         </div>
-    ), [activeTab, refreshRooms, roomStore, showHistory, hasHistoryRooms]);
+    ), [activeTab, refreshRooms, roomStore, isPhone]);
 
     const DesktopLayoutContent = useMemo(() => (
         <div className="homepage-layout-vertical-container">
-            <MainRoomMenu />
+            <MainRoomMenu isPhone={isPhone} />
             <div className="homepage-layout-vertical-content">
                 <MainRoomListPanel
                     activeTab={activeTab}
@@ -210,7 +199,7 @@ export const HomePage = observer(function HomePage() {
                     setActiveTab={setActiveTab}
                     isMobile={false}
                 />
-                {!isPhone && hasHistoryRooms && (
+                {hasHistoryRooms && (
                     <MainRoomHistoryPanel 
                         refreshRooms={refreshRooms} 
                         roomStore={roomStore}
@@ -221,9 +210,9 @@ export const HomePage = observer(function HomePage() {
             <RoomNotBeginModal />
             <AppUpgradeModal />
         </div>
-    ), [activeTab, refreshRooms, roomStore, isPhone, hasHistoryRooms]);
+    ), [activeTab, refreshRooms, roomStore, hasHistoryRooms, isPhone]);
 
-    return isMobile ? MobileLayoutContent : DesktopLayoutContent;
+    return isPhone ? MobileLayoutContent : DesktopLayoutContent;
 });
 
 export default HomePage;

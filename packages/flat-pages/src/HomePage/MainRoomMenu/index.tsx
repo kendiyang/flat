@@ -12,13 +12,15 @@ import { ScheduleRoomBox } from "./ScheduleRoomBox";
 import { joinRoomHandler } from "../../utils/join-room-handler";
 import { errorTips } from "flat-components";
 import CreateAIRoomBox from "./CreateAIRoomBox";
-import { useIsPhoneScreen } from "../../hooks/useIsPhoneScreen";
 
-export const MainRoomMenu: FC = () => {
+interface MainRoomMenuProps {
+    isPhone?: boolean;
+}
+
+export const MainRoomMenu: FC<MainRoomMenuProps> = ({ isPhone }) => {
     const roomStore = useContext(RoomStoreContext);
     const globalStore = useContext(GlobalStoreContext);
     const pushHistory = usePushHistory();
-    const isPhone = useIsPhoneScreen();
 
     const onJoinRoom = async (roomUUID: string): Promise<void> => {
         if (globalStore.isTurnOffDeviceTest || window.isElectron) {
