@@ -1,6 +1,6 @@
 import "./MainRoomMenu.less";
 
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { Col, Row } from "antd";
 import { Region } from "flat-components";
 import { AILanguage, AIRole, AIScene, RoomType } from "@netless/flat-server-api";
@@ -18,6 +18,18 @@ export const MainRoomMenu: FC = () => {
     const globalStore = useContext(GlobalStoreContext);
     const pushHistory = usePushHistory();
 
+    // 监听屏幕方向变化
+    const [isPortrait, setIsPortrait] = useState(window.innerHeight > window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsPortrait(window.innerHeight > window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const onJoinRoom = async (roomUUID: string): Promise<void> => {
         if (globalStore.isTurnOffDeviceTest || window.isElectron) {
             await joinRoomHandler(roomUUID, pushHistory);
@@ -27,7 +39,7 @@ export const MainRoomMenu: FC = () => {
     };
 
     return (
-        <div className="main-room-menu-container">
+        <div className={`main-room-menu-container${isPortrait ? " portrait" : ""}`}>
             <Row>
                 <Col span={6}>
                     <JoinRoomBox onJoinRoom={onJoinRoom} />

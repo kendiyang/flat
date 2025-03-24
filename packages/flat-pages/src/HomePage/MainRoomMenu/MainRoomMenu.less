@@ -1,7 +1,6 @@
 .main-room-menu-container {
-    font-size: 14px;
-    margin-bottom: 16px;
-    padding: 0 16px;
+    padding: 16px;
+    margin-bottom: 24px;
 
     .ant-row {
         margin: 0 -8px;
@@ -10,12 +9,34 @@
     .ant-col {
         padding: 0 8px;
     }
+
+    .homepage-hero-button {
+        min-height: 144px;
+        padding: 16px;
+        border-radius: 8px;
+        transition: all 0.2s;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        .ant-btn-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+    }
 }
 
 // 移动端适配
 @media (max-width: 768px) {
     .main-room-menu-container {
         margin-bottom: 12px;
+        padding: 0 12px;
 
         .ant-row {
             display: grid;
@@ -27,25 +48,23 @@
         .ant-col {
             width: 100%;
             padding: 0;
-            margin-bottom: 12px;
-
-            &:last-child,
-            &:nth-last-child(2) {
-                margin-bottom: 0;
-            }
+            margin-bottom: 0;
         }
 
         // 优化按钮样式
-        .ant-btn {
-            width: 100%;
-            height: auto;
-            min-height: 44px;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .homepage-hero-button {
+            min-height: 88px;
+            padding: 12px 8px;
             border-radius: 8px;
+            background: var(--grey-0);
+            border: 1px solid var(--grey-3);
+            transition: all 0.2s ease;
+
+            &:hover,
+            &:active {
+                border-color: var(--primary);
+                background: var(--blue-0);
+            }
 
             &:active {
                 transform: scale(0.98);
@@ -54,30 +73,73 @@
 
         // 优化图标大小
         .homepage-hero-button-icon {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 4px;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 6px;
         }
 
         // 优化文字大小
         .homepage-hero-button-text {
-            font-size: 12px;
-            line-height: 1.2;
+            font-size: 13px;
+            line-height: 1.3;
             text-align: center;
+            color: var(--text);
+            margin: 0;
+            padding: 0 4px;
         }
     }
 }
 
-// 暗色模式适配
-.flat-color-scheme-dark {
+// 竖屏模式样式
+@media screen and (max-width: 480px) and (orientation: portrait) {
+    .main-room-menu-container.portrait {
+        padding: 12px;
+        margin-bottom: 16px;
+
+        .ant-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -6px;
+        }
+
+        .ant-col {
+            width: 50% !important;
+            padding: 0 6px;
+            margin-bottom: 12px;
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .homepage-hero-button {
+            min-height: 120px;
+            padding: 12px;
+            border-radius: 6px;
+
+            .ant-btn-icon {
+                font-size: 20px;
+                margin-bottom: 6px;
+            }
+
+            .ant-btn-text {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// 暗黑模式适配
+.dark {
     .main-room-menu-container {
-        .ant-btn {
-            background: var(--grey-10);
-            border-color: var(--grey-8);
+        .homepage-hero-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
 
             &:hover {
-                background: var(--grey-9);
-                border-color: var(--grey-7);
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            &:active {
+                background: rgba(255, 255, 255, 0.08);
             }
         }
     }
