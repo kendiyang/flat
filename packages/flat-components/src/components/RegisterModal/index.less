@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     min-height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(246, 248, 255, 0.95) 100%);
 }
 
 .register-width-limiter {
@@ -17,6 +18,14 @@
 
 .ant-input-affix-wrapper {
     padding-left: 4px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:hover,
+    &:focus {
+        border-color: var(--blue-6);
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+    }
 }
 
 .ant-input-password-icon.anticon {
@@ -31,12 +40,17 @@
         min-height: calc(100vh - 32px);
         justify-content: flex-start;
         box-sizing: border-box;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(246, 248, 255, 0.95) 100%);
     }
 
     .register-width-limiter {
         width: 100%;
-        padding: 0;
+        padding: 24px 20px;
         margin-bottom: 24px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 
         :global(.ant-form) {
             width: 100%;
@@ -48,39 +62,91 @@
 
         :global(.ant-input),
         :global(.ant-input-affix-wrapper) {
-            height: 48px;
-            padding: 8px 12px;
+            height: 52px;
+            padding: 8px 16px;
             font-size: 16px;
-            border-radius: 8px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+
+            &:hover,
+            &:focus {
+                border-color: var(--blue-6);
+                box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+            }
+
+            &::placeholder {
+                color: rgba(0, 0, 0, 0.25);
+            }
         }
 
         :global(.ant-form-item-control-input) {
-            min-height: 48px;
+            min-height: 52px;
         }
 
         :global(.login-title) {
-            margin: 0 0 32px;
+            margin: 0 0 36px;
 
             .login-title-text {
-                font-size: 24px;
+                font-size: 28px;
                 line-height: 1.4;
+                background: linear-gradient(120deg, #1890ff, #722ed1);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 600;
             }
         }
 
         :global(.ant-checkbox-wrapper) {
             font-size: 14px;
-            margin: 16px 0 24px;
+            margin: 20px 0 28px;
+            color: var(--text-secondary);
 
             span {
                 padding-right: 8px;
             }
+
+            a {
+                color: var(--blue-6);
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
 
         :global(.ant-btn) {
-            height: 48px;
+            height: 52px;
             font-size: 16px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+
+            &[type="primary"] {
+                background: linear-gradient(120deg, #1890ff, #096dd9);
+                border: none;
+                box-shadow: 0 4px 12px rgba(24, 144, 255, 0.25);
+
+                &:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 6px 16px rgba(24, 144, 255, 0.35);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+
+            &[type="link"] {
+                color: var(--text-secondary);
+
+                &:hover {
+                    color: var(--blue-6);
+                }
+            }
         }
     }
 
@@ -88,22 +154,41 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        gap: 24px;
-        margin-top: 16px;
+        gap: 32px;
+        margin-top: 20px;
 
         :global(.ant-btn) {
             min-width: 120px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
         }
     }
 
     :global(.login-splitter) {
         width: 100%;
-        margin: 32px 0 24px;
+        margin: 36px 0 28px;
+
+        &::before,
+        &::after {
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
 
         span {
             font-size: 14px;
-            color: var(--text);
-            padding: 0 12px;
+            color: var(--text-secondary);
+            padding: 0 16px;
         }
     }
 }
