@@ -1,21 +1,109 @@
 .register-content {
-    padding-top: 87px;
-    padding-bottom: 32px;
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+}
 
-    .register-width-limiter {
-        width: 320px;
-        margin: 0 auto 12px;
-    }
-
-    .ant-input-affix-wrapper {
-        padding-left: 4px;
-    }
-
-    .ant-input-password-icon.anticon {
-        color: inherit;
-    }
+.register-width-limiter {
+    width: 320px;
+    margin: 0 auto;
 }
 
 .register-with-btn {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.ant-input-affix-wrapper {
+    padding-left: 4px;
+}
+
+.ant-input-password-icon.anticon {
+    color: inherit;
+}
+
+// 移动端适配
+@media (max-width: 768px) {
+    .register-content {
+        padding: 0;
+        height: auto;
+        min-height: calc(100vh - 32px);
+        justify-content: flex-start;
+        box-sizing: border-box;
+    }
+
+    .register-width-limiter {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 24px;
+
+        :global(.ant-form) {
+            width: 100%;
+        }
+
+        :global(.ant-form-item) {
+            margin-bottom: 20px;
+        }
+
+        :global(.ant-input),
+        :global(.ant-input-affix-wrapper) {
+            height: 48px;
+            padding: 8px 12px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+
+        :global(.ant-form-item-control-input) {
+            min-height: 48px;
+        }
+
+        :global(.login-title) {
+            margin: 0 0 32px;
+
+            .login-title-text {
+                font-size: 24px;
+                line-height: 1.4;
+            }
+        }
+
+        :global(.ant-checkbox-wrapper) {
+            font-size: 14px;
+            margin: 16px 0 24px;
+
+            span {
+                padding-right: 8px;
+            }
+        }
+
+        :global(.ant-btn) {
+            height: 48px;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+    }
+
+    :global(.login-buttons) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 16px;
+
+        :global(.ant-btn) {
+            min-width: 120px;
+        }
+    }
+
+    :global(.login-splitter) {
+        width: 100%;
+        margin: 32px 0 24px;
+
+        span {
+            font-size: 14px;
+            color: var(--text);
+            padding: 0 12px;
+        }
+    }
 }
