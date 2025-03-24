@@ -43,6 +43,67 @@
     z-index: 1;
 }
 
+// 移动端适配
+@media (max-width: 768px) {
+    .login-panel-container {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    .login-panel-cover {
+        display: none; // 在移动端隐藏封面图
+    }
+
+    .login-panel-inner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 16px;
+        box-sizing: border-box;
+    }
+
+    .login-width-limiter {
+        width: 100%;
+        margin: 0 auto 24px;
+        padding: 0;
+    }
+
+    .login-big-button {
+        height: 48px;
+        font-size: 16px;
+    }
+
+    .login-splitter {
+        margin: 24px 0;
+
+        &::before,
+        &::after {
+            margin: 0 12px;
+        }
+    }
+
+    // 确保表单元素正确显示
+    :global(.ant-form) {
+        width: 100%;
+    }
+
+    :global(.ant-form-item) {
+        margin-bottom: 16px;
+    }
+
+    :global(.login-with-email),
+    :global(.register-content) {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 .flat-color-scheme-dark {
 
     .login-splitter::before,

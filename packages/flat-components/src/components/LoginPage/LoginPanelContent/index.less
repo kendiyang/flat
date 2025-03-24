@@ -3,7 +3,7 @@
     width: 100%;
     height: 100%;
 
-    > * {
+    >* {
         position: absolute;
         top: 0;
         left: 0;
@@ -30,4 +30,31 @@
 .slider-in-enter-active {
     opacity: 1;
     transform: translateX(0);
+}
+
+// 移动端适配
+@media (max-width: 768px) {
+    .login-panel-content {
+        position: relative;
+        height: auto;
+        min-height: 100%;
+
+        >* {
+            position: relative;
+            height: auto;
+            min-height: 100%;
+        }
+    }
+
+    // 优化动画效果
+    .slider-in-exit,
+    .slider-in-enter {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    .slider-in-exit-active,
+    .slider-in-enter-active {
+        transform: translateX(0);
+    }
 }
