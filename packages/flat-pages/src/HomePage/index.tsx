@@ -4,6 +4,7 @@ import React, { useCallback, useContext, useEffect, useState, useMemo } from "re
 import { observer } from "mobx-react-lite";
 import { ListRoomsType } from "@netless/flat-server-api";
 import { errorTips, useSafePromise } from "flat-components";
+import { Button } from "antd";
 import { MainRoomMenu } from "./MainRoomMenu";
 import { ActiveTabType, MainRoomListPanel } from "./MainRoomListPanel";
 import { MainRoomHistoryPanel } from "./MainRoomHistoryPanel";
@@ -15,7 +16,6 @@ import {
 } from "../components/StoreProvider";
 import { AppUpgradeModal } from "../components/AppUpgradeModal";
 import { RoomNotBeginModal } from "../components/RoomNotBeginModal";
-import { Button } from "flat-components";
 
 // 设备类型检测函数
 const isMobileDevice = (): boolean => {
@@ -139,7 +139,7 @@ export const HomePage = observer(function HomePage() {
     }, [refreshRooms, isLogin, globalStore.requestRefreshRooms]);
 
     // 使用useMemo优化移动端和桌面端布局
-    const MobileLayout = useMemo(() => (
+    const MobileLayoutContent = useMemo(() => (
         <div className="homepage-layout-mobile-container">
             <MainRoomMenu />
             <div className="homepage-layout-mobile-content">
@@ -167,7 +167,7 @@ export const HomePage = observer(function HomePage() {
         </div>
     ), [activeTab, refreshRooms, roomStore, showHistory]);
 
-    const DesktopLayout = useMemo(() => (
+    const DesktopLayoutContent = useMemo(() => (
         <div className="homepage-layout-horizontal-container">
             <MainRoomMenu />
             <div className="homepage-layout-horizontal-content">
@@ -189,7 +189,7 @@ export const HomePage = observer(function HomePage() {
         </div>
     ), [activeTab, refreshRooms, roomStore]);
 
-    return isMobile ? <MobileLayout /> : <DesktopLayout />;
+    return isMobile ? MobileLayoutContent : DesktopLayoutContent;
 });
 
 export default HomePage;
