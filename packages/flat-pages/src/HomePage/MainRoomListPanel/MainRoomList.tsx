@@ -1,5 +1,5 @@
 import { message } from "antd";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import {
     InviteModal,
@@ -23,6 +23,7 @@ import { joinRoomHandler } from "../../utils/join-room-handler";
 import { useTranslate } from "@netless/flat-i18n";
 import { FLAT_WEB_BASE_URL } from "../../constants/process";
 import { generateAvatar } from "../../utils/generate-avatar";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export interface MainRoomListProps {
     roomStore: RoomStore;
@@ -36,6 +37,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
     refreshRooms,
 }) {
     const t = useTranslate();
+    const [loading, setLoading] = useState(false);
     const [skeletonsVisible, setSkeletonsVisible] = useState(false);
     const [cancelModalVisible, setCancelModalVisible] = useState(false);
     const [stopModalVisible, setStopModalVisible] = useState(false);
@@ -47,36 +49,75 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
     const sp = useSafePromise();
     const globalStore = useContext(GlobalStoreContext);
     const isHistoryList = listRoomsType === ListRoomsType.History;
+    const loadingTimeoutRef = useRef<number>();
 
-    // Wait 200ms before showing skeletons to reduce flashing.
+    // 优化加载状态显示
     useEffect(() => {
-        const ticket = window.setTimeout(() => setSkeletonsVisible(true), 200);
-        return () => window.clearTimeout(ticket);
+        // 200ms后才显示骨架屏，避免闪烁
+        loadingTimeoutRef.current = window.setTimeout(() => {
+            setSkeletonsVisible(true);
+        }, 200);
+
+        return () => {
+            if (loadingTimeoutRef.current) {
+                window.clearTimeout(loadingTimeoutRef.current);
+            }
+        };
     }, []);
 
+    // 优化列表刷新
+    const handleRefresh = useCallback(async () => {
+        if (loading) return;
+        
+        try {
+            setLoading(true);
+            await refreshRooms();
+        } finally {
+            setLoading(false);
+        }
+    }, [loading, refreshRooms]);
+
+    // 优化列表渲染
     const roomUUIDs = roomStore.roomUUIDs[listRoomsType];
 
     if (!roomUUIDs) {
-        return skeletonsVisible ? <RoomListSkeletons /> : null;
+        return skeletonsVisible ? (
+            <div className="room-list-skeletons">
+                <RoomListSkeletons />
+            </div>
+        ) : null;
     }
 
     if (roomUUIDs.length <= 0) {
-        return <RoomListEmpty isHistory={isHistoryList} />;
+        return (
+            <div className="room-list-empty">
+                <RoomListEmpty isHistory={isHistoryList} />
+            </div>
+        );
     }
+
+    // 优化列表项排序和渲染
+    const sortedRooms = useMemo(() => {
+        return customSort(roomUUIDs.map(roomUUID => roomStore.rooms.get(roomUUID)))
+            .filter(room => room !== undefined);
+    }, [roomUUIDs, roomStore.rooms]);
 
     const periodicInfo = currentRoom?.periodicUUID
         ? roomStore.periodicRooms.get(currentRoom?.periodicUUID)
         : undefined;
 
     return (
-        <>
-            {customSort(roomUUIDs.map(roomUUID => roomStore.rooms.get(roomUUID))).map(room => {
-                if (!room) {
-                    return null;
-                }
+        <div className="room-list-container">
+            {loading && (
+                <div className="room-list-loading-indicator">
+                    <LoadingOutlined />
+                </div>
+            )}
+            {sortedRooms.map(room => {
+                if (!room) return null;
 
-                const beginTime = room.beginTime ? new Date(room.beginTime) : void 0;
-                const endTime = room.endTime ? new Date(room.endTime) : void 0;
+                const beginTime = room.beginTime ? new Date(room.beginTime) : undefined;
+                const endTime = room.endTime ? new Date(room.endTime) : undefined;
 
                 const primaryAction = (
                     roomStatus?: RoomStatus,
@@ -98,7 +139,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
                 };
 
                 return (
-                    <Fragment key={room.roomUUID}>
+                    <div key={room.roomUUID} className="room-list-item-wrapper">
                         <RoomListItem
                             beginTime={beginTime}
                             endTime={endTime}
@@ -175,7 +216,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
                                 }
                             }}
                         />
-                    </Fragment>
+                    </div>
                 );
             })}
             <RoomListAllLoaded />
@@ -218,7 +259,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
                     onConfirm={removeConfirm}
                 />
             )}
-        </>
+        </div>
     );
 
     async function joinRoom(roomUUID: string): Promise<void> {
@@ -297,7 +338,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
                 });
             }
             setCancelModalVisible(false);
-            void refreshRooms();
+            void handleRefresh();
             const content = isCreator
                 ? t("the-room-has-been-cancelled")
                 : t("the-room-has-been-removed");
@@ -316,7 +357,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
             if (isCreator && isStarted) {
                 await stopClass(roomUUID);
                 globalStore.updatePmiRoomListByRoomUUID(roomUUID);
-                void refreshRooms();
+                void handleRefresh();
             }
             setStopModalVisible(false);
         } catch (e) {
@@ -335,7 +376,7 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
                 }),
             );
             hideRemoveHistoryModal();
-            void refreshRooms();
+            void handleRefresh();
         } catch (e) {
             console.error(e);
             errorTips(e);
@@ -411,3 +452,5 @@ export const MainRoomList = observer<MainRoomListProps>(function MainRoomList({
         }
     }
 });
+
+export default MainRoomList;

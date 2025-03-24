@@ -15,6 +15,89 @@
     overflow: hidden;
 }
 
+// 移动端布局
+.homepage-layout-mobile-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--grey-0);
+    -webkit-overflow-scrolling: touch;
+    will-change: transform;
+}
+
+.homepage-layout-mobile-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 0 16px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.homepage-layout-mobile-history {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--grey-0);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease-out;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate3d(100%, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.room-list-title-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0;
+
+    .ant-btn {
+        padding: 4px 0;
+        height: auto;
+        font-size: 14px;
+        touch-action: manipulation;
+    }
+}
+
+.room-history-panel {
+    height: 100%;
+
+    &.mobile {
+        padding: 16px;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.room-history-title-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0;
+
+    .ant-btn {
+        padding: 4px 0;
+        height: auto;
+        font-size: 16px;
+        touch-action: manipulation;
+    }
+}
+
 .room-not-begin-modal {
     .ant-modal-title {
         text-align: center;
@@ -37,4 +120,58 @@
     font-style: normal;
     color: var(--primary);
     padding: 0 .25em;
+}
+
+// 移动端适配
+@media (max-width: 768px) {
+    .main-room-menu-container {
+        padding: 16px;
+
+        .ant-row {
+            margin: 0 !important;
+        }
+
+        .ant-col {
+            padding: 8px 0 !important;
+            width: 100%;
+        }
+
+        .ant-btn {
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+    }
+
+    .homepage-layout-mobile-content {
+        .ant-tabs-nav {
+            margin-bottom: 16px;
+        }
+
+        .ant-tabs-tab {
+            margin: 0 16px 0 0;
+            padding: 8px 0;
+            font-size: 14px;
+            touch-action: manipulation;
+        }
+
+        .ant-list {
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+
+    .flat-color-scheme-dark {
+
+        .homepage-layout-mobile-container,
+        .homepage-layout-mobile-history {
+            background: var(--grey-12);
+        }
+    }
+}
+
+.homepage-layout-mobile-container,
+.homepage-layout-mobile-history,
+.room-list-title-mobile,
+.room-history-title-mobile {
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
