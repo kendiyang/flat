@@ -16,6 +16,7 @@ import {
 } from "../components/StoreProvider";
 import { AppUpgradeModal } from "../components/AppUpgradeModal";
 import { RoomNotBeginModal } from "../components/RoomNotBeginModal";
+import { useIsPhoneScreen } from "../hooks/useIsPhoneScreen";
 
 // 设备类型检测函数
 const isMobileDevice = (): boolean => {
@@ -40,6 +41,7 @@ export const HomePage = observer(function HomePage() {
     const pageStore = useContext(PageStoreContext);
     const roomStore = useContext(RoomStoreContext);
     const globalStore = useContext(GlobalStoreContext);
+    const isPhone = useIsPhoneScreen();
 
     const [activeTab, setActiveTab] = useState<ActiveTabType>(ListRoomsType.All);
     const [showHistory, setShowHistory] = useState(false);

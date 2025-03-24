@@ -1,6 +1,6 @@
 import "./MainRoomMenu.less";
 
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext } from "react";
 import { Col, Row } from "antd";
 import { Region } from "flat-components";
 import { AILanguage, AIRole, AIScene, RoomType } from "@netless/flat-server-api";
@@ -12,23 +12,13 @@ import { ScheduleRoomBox } from "./ScheduleRoomBox";
 import { joinRoomHandler } from "../../utils/join-room-handler";
 import { errorTips } from "flat-components";
 import CreateAIRoomBox from "./CreateAIRoomBox";
+import { useIsPhoneScreen } from "../../hooks/useIsPhoneScreen";
 
 export const MainRoomMenu: FC = () => {
     const roomStore = useContext(RoomStoreContext);
     const globalStore = useContext(GlobalStoreContext);
     const pushHistory = usePushHistory();
-
-    // 监听屏幕方向变化
-    const [isPortrait, setIsPortrait] = useState(window.innerHeight > window.innerWidth);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsPortrait(window.innerHeight > window.innerWidth);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const isPhone = useIsPhoneScreen();
 
     const onJoinRoom = async (roomUUID: string): Promise<void> => {
         if (globalStore.isTurnOffDeviceTest || window.isElectron) {
@@ -39,20 +29,24 @@ export const MainRoomMenu: FC = () => {
     };
 
     return (
-        <div className={`main-room-menu-container${isPortrait ? " portrait" : ""}`}>
-            <Row>
-                <Col span={6}>
+        <div className="main-room-menu-container">
+            <Row className="menu-row">
+                <Col flex={isPhone ? "1" : "1 1 25%"}>
                     <JoinRoomBox onJoinRoom={onJoinRoom} />
                 </Col>
-                <Col span={6}>
+                <Col flex={isPhone ? "1" : "1 1 25%"}>
                     <CreateRoomBox onCreateRoom={createOrdinaryRoom} />
                 </Col>
-                <Col span={6}>
-                    <ScheduleRoomBox />
-                </Col>
-                <Col span={6}>
-                    <CreateAIRoomBox onCreateRoom={createAIRoom} />
-                </Col>
+                {!isPhone && (
+                    <>
+                        <Col flex="1 1 25%">
+                            <ScheduleRoomBox />
+                        </Col>
+                        <Col flex="1 1 25%">
+                            <CreateAIRoomBox onCreateRoom={createAIRoom} />
+                        </Col>
+                    </>
+                )}
             </Row>
         </div>
     );

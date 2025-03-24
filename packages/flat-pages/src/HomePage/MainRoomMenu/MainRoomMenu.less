@@ -2,7 +2,8 @@
     padding: 16px;
     margin-bottom: 24px;
 
-    .ant-row {
+    .menu-row {
+        display: flex;
         margin: 0 -8px;
     }
 
@@ -11,7 +12,7 @@
     }
 
     .homepage-hero-button {
-        min-height: 144px;
+        min-height: 120px;
         padding: 16px;
         border-radius: 8px;
         transition: all 0.2s;
@@ -20,24 +21,30 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+        background: var(--grey-0);
+        border: 1px solid var(--grey-3);
 
         &:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
         }
 
         &:active {
             transform: translateY(0);
+            background: var(--grey-1);
         }
 
         .ant-btn-icon {
             font-size: 24px;
             margin-bottom: 8px;
+            color: var(--primary);
         }
 
         .ant-btn-text {
             font-size: 14px;
             line-height: 1.4;
+            color: var(--text);
         }
     }
 }
@@ -48,25 +55,17 @@
         padding: 12px;
         margin-bottom: 16px;
 
-        .ant-row {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 0;
+        .menu-row {
+            margin: 0 -6px;
         }
 
         .ant-col {
-            width: 100% !important;
-            padding: 0 !important;
-            margin: 0 !important;
+            padding: 0 6px;
         }
 
         .homepage-hero-button {
             min-height: 96px;
             padding: 12px 8px;
-            border-radius: 8px;
-            background: var(--grey-0);
-            border: 1px solid var(--grey-3);
 
             .ant-btn-icon {
                 font-size: 22px;
@@ -76,16 +75,6 @@
             .ant-btn-text {
                 font-size: 13px;
                 line-height: 1.3;
-            }
-
-            &:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            }
-
-            &:active {
-                transform: translateY(0);
-                background: var(--grey-1);
             }
         }
     }
@@ -126,10 +115,15 @@
 
             &:hover {
                 background: rgba(255, 255, 255, 0.15);
+                border-color: var(--primary);
             }
 
             &:active {
                 background: rgba(255, 255, 255, 0.08);
+            }
+
+            .ant-btn-text {
+                color: var(--text);
             }
         }
     }
