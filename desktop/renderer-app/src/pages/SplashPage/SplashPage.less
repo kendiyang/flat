@@ -1,0 +1,52 @@
+.splash-container {
+    overflow: hidden;
+    width: 960px;
+    height: 640px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+}
+
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 290px;
+    opacity: 0.3;
+
+    &.is-logo-loaded {
+        animation: flat-fly 1s forwards;
+    }
+
+    img {
+        margin-bottom: 24px;
+    }
+
+    span {
+        color: #444e60;
+        font-size: 14px;
+    }
+}
+
+@keyframes flat-fly {
+    0% {
+        opacity: 0.3;
+        transition-timing-function: ease-in;
+        transition-timing-function: cubic-bezier(0.42, 0, 1, 1);
+        transform: translateY(0);
+    }
+    20% {
+        opacity: 0.7;
+        transition-timing-function: ease-in;
+        transition-timing-function: cubic-bezier(0.42, 0, 1, 1);
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 1;
+        transition-timing-function: ease-out;
+        transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+        transform: translateY(-210px);
+    }
+}

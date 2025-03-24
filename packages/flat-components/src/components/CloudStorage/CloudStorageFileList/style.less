@@ -1,0 +1,173 @@
+.cloud-storage-file-list-table {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+
+    .ant-table {
+        color: var(--text);
+        background-color: #fff;
+    }
+
+    .ant-table-thead > tr > th {
+        color: var(--text);
+        background: transparent;
+        user-select: none;
+    }
+
+    .ant-table-thead
+        > tr
+        > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+        background-color: transparent;
+    }
+
+    .ant-table-tbody > tr > td {
+        border-bottom-color: var(--grey-1);
+    }
+
+    .ant-table-tbody > tr.ant-table-row-selected > td {
+        background-color: var(--blue-2);
+    }
+
+    .ant-table-tbody > tr.ant-table-row:hover {
+        .cloud-storage-file-list-menu-btn-wrap {
+            opacity: 1;
+        }
+    }
+
+    .ant-table-tbody > tr.ant-table-row:hover > td {
+        background-color: var(--blue-1);
+    }
+
+    td.ant-table-column-sort,
+    .ant-table-thead th.ant-table-column-has-sorters:hover {
+        background: inherit;
+    }
+
+    .ant-table-column-sorter {
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
+    .ant-table-column-has-sorters:hover {
+        .ant-table-column-sorter {
+            opacity: 1;
+        }
+    }
+}
+
+.cloud-storage-pull-up-loading {
+    margin: 0 auto;
+}
+
+.cloud-storage-file-list-filename-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 2em;
+}
+
+.cloud-storage-file-list-menu-btn-wrap {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity 0.4s;
+}
+
+.cloud-storage-file-list-menu-btn {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    line-height: none;
+    background-color: transparent !important;
+
+    & > img {
+        max-width: none;
+        max-height: none;
+    }
+}
+
+.cloud-storage-file-list-menu {
+    & > .ant-dropdown-menu {
+        border-radius: 8px;
+        box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.08);
+    }
+
+    .ant-dropdown-menu-item {
+        color: var(--text);
+        padding: 9px 16px;
+        min-width: 164px;
+    }
+
+    .danger {
+        color: var(--danger);
+    }
+}
+
+.cloud-storage-file-list-title-span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.cloud-storage-file-list-title {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    color: var(--text);
+    padding-right: 8px;
+}
+
+.cloud-storage-file-list-empty {
+    flex: 1;
+    margin-top: -2px;
+    position: relative;
+    background-color: #fff;
+}
+
+.cloud-storage-file-list-empty-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.cloud-storage-file-list-empty-text {
+    margin-left: -0.75em;
+    color: var(--text);
+}
+
+.flat-color-scheme-dark {
+    .cloud-storage-file-list-table {
+        .ant-table {
+            background-color: var(--grey-10);
+        }
+        .ant-table-thead > tr > th,
+        .ant-table-tbody > tr > td {
+            border-bottom-color: var(--grey-8);
+        }
+        .ant-table-tbody > tr.ant-table-row:hover > td {
+            background-color: var(--grey-11);
+        }
+        .ant-table-tbody > tr.ant-table-row-selected > td {
+            background-color: var(--grey-11);
+        }
+    }
+    .cloud-storage-file-list-empty {
+        background-color: var(--grey-10);
+    }
+    .cloud-storage-file-list-menu {
+        & > .ant-dropdown-menu {
+            border-radius: 8px;
+            background-color: var(--grey-10);
+            box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.25);
+        }
+        .ant-dropdown-menu-item:hover {
+            background-color: var(--grey-11);
+        }
+    }
+}

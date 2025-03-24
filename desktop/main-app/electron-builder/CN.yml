@@ -1,0 +1,79 @@
+appId: io.agora.flat
+productName: Flat
+artifactName: Flat-${arch}-${version}.${ext}
+asar: true
+
+extraMetadata:
+  main: main.js
+
+files:
+  - filter:
+      - package.json
+  - from: ./dist
+
+mac:
+  category: public.app-category.productivity
+  hardenedRuntime: true
+  entitlements: entitlements.mac.plist
+  entitlementsInherit: entitlements.mac.plist
+  provisioningProfile: flatmacrelease.provisionprofile
+  gatekeeperAssess: false
+  extendInfo:
+    LSHasLocalizedDisplayName: true
+    CFBundleURLTypes:
+      - CFBundleURLName: x-agora-flat-client
+        CFBundleURLSchemes:
+          - x-agora-flat-client
+    NSPrincipalClass: AtomApplication
+  target:
+    - target: zip
+      arch:
+        - x64
+        - arm64
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+
+mas:
+  hardenedRuntime: true
+  type: distribution
+  category: public.app-category.productivity
+  entitlements: entitlements.mac.mas.plist
+  entitlementsInherit: entitlements.mac.mas.plist
+  gatekeeperAssess: true
+
+dmg:
+  contents:
+    - { x: 130, y: 220 }
+    - { x: 410, y: 220, type: link, path: /Applications }
+
+win:
+  target:
+    - target: zip
+      arch:
+        - x64
+    - target: nsis
+      arch:
+        - x64
+
+protocols:
+  - name: Agora Flat Client
+    schemes:
+      - x-agora-flat-client
+
+nsis:
+  oneClick: false
+  perMachine: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  allowToChangeInstallationDirectory: true
+  installerIcon: resources/install.ico
+  installerHeaderIcon: resources/header.ico
+  shortcutName: Flat
+
+directories:
+  buildResources:
+
+releaseInfo:
+  releaseNotes:

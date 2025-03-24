@@ -1,0 +1,83 @@
+.login-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+}
+
+.login-with-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-with-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.login-with-buttons-title-line {
+    position: relative;
+    text-align: center;
+    color: #7a7b7c;
+    margin-bottom: 16px;
+}
+
+.login-with-buttons-title-text {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px;
+    background: #fff;
+}
+
+.flat-color-scheme-dark {
+    .login-with-buttons-title-text {
+        background-color: var(--grey-10);
+    }
+}
+
+.login-with-buttons-title-line::after {
+    position: absolute;
+    content: "";
+    height: 1px;
+    background-color: #dbe1ea;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 0;
+}
+
+.flat-color-scheme-dark {
+    .login-with-buttons-title-line::after {
+        background-color: var(--grey-8);
+    }
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    .login-with-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        gap: 12px;
+
+        .ant-btn {
+            width: 100%;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .login-with-buttons-title-line {
+        width: 100%;
+        max-width: 320px;
+        margin: 16px auto;
+    }
+}

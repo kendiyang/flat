@@ -1,0 +1,108 @@
+.main-page-nav-horizontal-container {
+    width: 100%;
+    background-color: #fff;
+}
+
+.main-page-nav-horizontal-content {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    max-width: 960px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.main-page-nav-horizontal-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    .ant-tabs-tab {
+        font-size: 14px;
+        color: var(--text);
+        padding: 8px 0;
+    }
+
+    .ant-tabs-nav {
+        margin: 0;
+    }
+
+    .ant-tabs-nav::before {
+        border-bottom: none;
+    }
+
+    .ant-tabs-nav-operations {
+        position: absolute !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+
+.main-page-nav-horizontal-left-menu-item {
+    display: flex;
+    align-items: center;
+}
+
+.main-page-nav-horizontal-left-menu-item-icon {
+    display: flex;
+    padding-right: 6px;
+}
+
+.main-page-nav-horizontal-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.main-page-nav-horizontal-right-item {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4px;
+    color: currentColor;
+
+    &:hover {
+        background-color: var(--blue-1);
+    }
+}
+
+.main-page-nav-horizontal-right-item-img {
+    font-size: 0;
+    pointer-events: none;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.main-page-nav-horizontal-right-item-title {
+    margin-left: 4px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.main-page-nav-horizontal-right-header {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+}
+
+.flat-color-scheme-dark {
+    .main-page-nav-horizontal-right-item {
+        &:hover {
+            background-color: var(--grey-7);
+        }
+
+        &:active {
+            background-color: var(--grey-9);
+        }
+    }
+
+    .main-page-nav-horizontal-container {
+        background-color: var(--grey-10);
+    }
+}

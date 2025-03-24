@@ -1,0 +1,23 @@
+.main-page-header-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    overflow: hidden;
+}
+
+.main-page-header-back {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #3381ff;
+    cursor: pointer;
+}
+
+.flat-color-scheme-dark {
+    .main-page-header-container {
+        >.ant-divider-vertical {
+            border-left: 1px solid var(--grey-8);
+        }
+    }
+}

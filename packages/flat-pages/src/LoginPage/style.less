@@ -1,0 +1,142 @@
+.login-page-container {
+    overflow: hidden;
+    width: 960px;
+    height: 640px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 40px rgb(0 0 0 / 15%);
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.flat-color-scheme-dark {
+    .login-page-container {
+        background-color: var(--grey-10);
+    }
+}
+
+@media (max-width: 768px) {
+    .login-page-container {
+        width: 100%;
+        min-height: 100%;
+        height: 100vh;
+        box-shadow: none;
+        border-radius: 0 !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 16px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        background-color: #fff;
+        box-sizing: border-box;
+    }
+
+    :global(.ant-form) {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    :global(.ant-form-item) {
+        margin-bottom: 20px;
+    }
+
+    :global(.ant-input),
+    :global(.ant-input-affix-wrapper) {
+        height: 48px;
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    :global(.ant-form-item-control-input) {
+        min-height: 48px;
+    }
+
+    :global(.ant-btn) {
+        height: 48px;
+        font-size: 16px;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    :global(.login-panel-content) {
+        padding: 0;
+        height: auto;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+
+    :global(.login-panel-container) {
+        max-height: none;
+        height: auto;
+        min-height: calc(100vh - 32px);
+        padding: 16px 0 32px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    :global(.ant-form-item-explain) {
+        font-size: 14px;
+        margin-top: 4px;
+    }
+
+    :global(.login-title) {
+        font-size: 24px;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    :global(.ant-tabs-nav) {
+        margin-bottom: 24px;
+    }
+
+    :global(.ant-tabs-tab) {
+        padding: 12px 0;
+        font-size: 16px;
+        margin: 0 16px;
+    }
+
+    :global(.ant-form-item-label) {
+        padding-bottom: 8px;
+
+        >label {
+            font-size: 15px;
+            height: 22px;
+            line-height: 22px;
+        }
+    }
+}
+
+// 处理键盘弹出时的布局
+@media (max-height: 600px) {
+    .login-page-container {
+        height: auto;
+        position: relative;
+        padding-bottom: 32px;
+    }
+
+    :global(.login-panel-container) {
+        min-height: auto;
+    }
+
+    :global(.login-title) {
+        margin-bottom: 16px;
+        font-size: 20px;
+    }
+
+    :global(.ant-form-item) {
+        margin-bottom: 16px;
+    }
+}

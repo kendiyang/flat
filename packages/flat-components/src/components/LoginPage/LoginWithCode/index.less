@@ -1,0 +1,73 @@
+.login-with-phone {
+    padding-top: 87px;
+    padding-bottom: 32px;
+
+    .login-width-limiter {
+        margin: 0 auto 12px;
+    }
+
+    .login-with-phone-code-btn-box {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .ant-btn {
+            padding: 0;
+        }
+    }
+
+    .login-with-phone-btn-box {
+        margin-bottom: 10px;
+    }
+
+    .login-width-limiter>div {
+        margin-bottom: 16px;
+    }
+
+    .ant-input-affix-wrapper {
+        padding-left: 4px;
+    }
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    .login-with-phone {
+        padding-top: 32px;
+        padding-bottom: 24px;
+
+        .login-width-limiter {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .login-with-phone-code-btn-box {
+            flex-wrap: wrap;
+
+            .ant-btn {
+                font-size: 14px;
+                height: auto;
+                padding: 8px 0;
+            }
+        }
+
+        /* 验证码输入框和按钮优化 */
+        .login-send-code-box {
+            .ant-input {
+                height: 44px;
+                font-size: 16px;
+            }
+
+            .ant-btn {
+                height: 44px;
+                font-size: 14px;
+            }
+        }
+
+        /* 登录按钮优化 */
+        .login-with-phone-btn-box {
+            .ant-btn {
+                width: 100%;
+            }
+        }
+    }
+}

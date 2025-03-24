@@ -1,0 +1,40 @@
+.homepage-layout-horizontal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.homepage-layout-horizontal-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.room-not-begin-modal {
+    .ant-modal-title {
+        text-align: center;
+    }
+
+    .ant-modal-header {
+        border-bottom: 1px solid var(--grey-1);
+
+        .flat-color-scheme-dark & {
+            border-bottom-color: var(--grey-8);
+        }
+    }
+
+    .ant-modal-footer {
+        border-top-width: 0;
+    }
+}
+
+.room-not-begin-early-minutes {
+    font-style: normal;
+    color: var(--primary);
+    padding: 0 .25em;
+}

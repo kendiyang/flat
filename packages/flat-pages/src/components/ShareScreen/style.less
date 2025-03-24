@@ -1,0 +1,14 @@
+.share-screen {
+    position: absolute;
+    z-index: 300;
+
+    &.active {
+        width: 100%;
+        height: 100%;
+        background: #000;
+
+        video {
+            object-fit: contain !important;
+        }
+    }
+}

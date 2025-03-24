@@ -1,0 +1,71 @@
+@topbar-content-right-cell-gap: 16px;
+
+.topbar-divider {
+    width: 1px;
+    height: 24px;
+    margin: 0 8px;
+    background-color: var(--grey-1);
+}
+
+.topbar-box {
+    -webkit-app-region: drag;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 40px;
+    flex-shrink: 0;
+    padding: 0 8px;
+    font-size: 16px;
+    user-select: none;
+    position: relative;
+
+    &.isMac {
+        border-top: none;
+    }
+
+    &.isWin {
+        border-bottom: none;
+    }
+}
+
+.topbar-content-left {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-content-center:extend(.topbar-content-left) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: var(--text);
+}
+
+.topbar-content-right:extend(.topbar-content-left) {
+    margin: 0 (@topbar-content-right-cell-gap / 2) 0 auto;
+}
+
+.topbar-content-dimmed {
+    color: var(--text-weaker);
+    font-size: 12px;
+}
+
+.flat-color-scheme-dark {
+    .topbar-box {
+        border-color: var(--grey-8);
+        background: linear-gradient(270deg, #383B42 0%, #2B2F38 100%);
+    }
+
+    .topbar-divider,
+    .topbar-content-divider {
+        background-color: var(--grey-8);
+    }
+
+    .topbar-content-dimmed {
+        color: var(--text);
+    }
+}

@@ -1,0 +1,190 @@
+.small-class-page-container {
+    // PATCH: low version Electron bug
+    // if a element location on the window edge that has drag attributes and the frames of BrowserWindow options is false,
+    // then this window can't to resize size of window.
+    // so that wrap draggable elements and add padding property to achieve resize feature.
+    // TODO: upgrade new version of the Electron after remove the PATCH.
+    width: 100%;
+    height: 100%;
+    padding: 0.5px;
+}
+
+.small-class-realtime-container {
+    -webkit-app-region: drag;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #f9f9f9;
+}
+
+.small-class-realtime-box {
+    width: 100%;
+    height: 100%;
+    -webkit-app-region: no-drag;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.small-class-realtime-box.is-fold {
+    .topbar-box {
+        border-bottom: 1px solid var(--grey-1);
+    }
+}
+
+.small-class-realtime-content-container {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.small-class-realtime-avatars-wrap-wrap {
+    position: relative;
+}
+
+.small-class-realtime-avatars-wrap {
+    overflow-y: hidden;
+    overflow-x: overlay;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    width: 100%;
+    border-bottom: 0.5px #dbe1ea solid;
+    flex-shrink: 0;
+    padding-bottom: 4px;
+    position: relative;
+    overscroll-behavior: contain;
+
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+        background: transparent;
+    }
+}
+
+.small-class-realtime-avatars {
+    height: 108px;
+    flex: 1;
+    gap: 8px;
+    padding: 0 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+
+    .video-avatar,
+    .video-avatar-absent {
+        width: 144px;
+        height: 108px;
+    }
+}
+
+.small-class-realtime-content {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.small-class-scroll-handles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 100;
+    font-size: 0;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.small-class-scroll-handle {
+    pointer-events: all;
+    appearance: none;
+    border: none;
+    padding: 0;
+    outline: none;
+    width: 72px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.small-class-realtime-avatars-wrap:hover+.small-class-scroll-handles {
+    opacity: .5;
+    transition: opacity 0.5s;
+}
+
+.small-class-scroll-handles:hover {
+    opacity: 1;
+    transition: opacity 0.1s;
+}
+
+.small-class-scroll-handle-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--grey-3);
+    border-radius: 50%;
+    background-color: #fff;
+    font-size: 0;
+
+    -webkit-backdrop-filter: blur(2.71828px);
+    backdrop-filter: blur(2.71828px);
+
+    >svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.flat-color-scheme-dark {
+    .small-class-realtime-box.is-fold {
+        .topbar-box {
+            border-bottom: 1px solid var(--grey-8);
+        }
+    }
+
+    .small-class-realtime-container,
+    .small-class-realtime-box {
+        color: var(--text);
+        background-color: var(--grey-9);
+    }
+
+    .small-class-realtime-avatars-wrap {
+        background: linear-gradient(270deg, #383B42 0%, #2B2F38 100%);
+        border-color: var(--grey-8);
+    }
+
+    .small-class-scroll-handle.is-left {
+        background-color: #2B2F38;
+        border-color: var(--grey-8);
+    }
+
+    .small-class-scroll-handle.is-right {
+        background-color: #383B42;
+        border-color: var(--grey-8);
+    }
+
+    .small-class-scroll-handle-btn {
+        border-color: var(--grey-8);
+    }
+
+    .small-class-realtime-avatars {
+        background: linear-gradient(270deg, #383B42 0%, #2B2F38 100%);
+    }
+}

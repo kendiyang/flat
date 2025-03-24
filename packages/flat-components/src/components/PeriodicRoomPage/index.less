@@ -1,0 +1,95 @@
+@import "../../theme/fancy-scrollbar.less";
+
+.periodic-room-panel-container {
+    height: 100%;
+    min-width: 540px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 48px;
+    padding-top: 24px;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.periodic-room-panel-btn-list {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-bottom: 16px;
+
+    .ant-btn {
+        height: 32px;
+        margin-right: 8px;
+    }
+}
+
+.periodic-room-panel-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+    margin: 0;
+}
+
+.periodic-room-panel-tips {
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    border-radius: 6px;
+    background-color: #f6f6f6;
+    font-size: 12px;
+
+    >div {
+        display: flex;
+        justify-content: space-between;
+        line-height: 24px;
+    }
+
+    >div+div {
+        margin-top: 4px;
+    }
+}
+
+.periodic-room-panel-table-line {
+    width: 100%;
+    margin-top: 16px;
+    border-bottom: solid 1px var(--grey-0);
+}
+
+.periodic-room-panel-table-container {
+    .fancy-scrollbar-mixin();
+    flex: 1;
+
+    .ant-table-tbody>tr>td {
+        color: var(--text);
+        border-bottom: 1px solid transparent;
+    }
+}
+
+.periodic-room-panel-month-value {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    margin-top: 16px;
+}
+
+.periodic-room-panel-more-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.flat-color-scheme-dark {
+    .periodic-room-panel-tips {
+        background-color: var(--grey-9);
+    }
+
+    .periodic-room-panel-container {
+        background-color: var(--grey-10);
+    }
+
+    .periodic-room-panel-table-line {
+        border-bottom: solid 1px var(--grey-8);
+    }
+}

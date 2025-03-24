@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "ES2017", "DOM.Iterable"],
+    "module": "ESNext",
+    "jsx": "react",
+    "types": ["vite/client"]
+  },
+  "exclude": ["node_modules", "dist", "public"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "typings/*.ts", "vite.config.ts", "scripts/**/*.ts"]
+}

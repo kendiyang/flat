@@ -1,0 +1,78 @@
+.cloud-storage-file-title {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    margin-right: 2em;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--text);
+
+    &.is-convert-ready {
+        & > .cloud-storage-file-title-content {
+            flex: 1;
+            opacity: 1;
+        }
+    }
+}
+
+.cloud-storage-file-title-icon-wrap {
+    flex-shrink: 0;
+    position: relative;
+    margin-right: 16px;
+}
+
+.cloud-storage-file-title-content {
+    flex: 1;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    overflow: hidden;
+    white-space: nowrap;
+    color: currentColor;
+    opacity: 0.6;
+    user-select: none;
+}
+
+.cloud-storage-file-title-rename-input {
+    box-shadow: none !important;
+    width: 200px;
+    max-width: 80%;
+    border-radius: 4px;
+    height: 30px;
+    margin-left: 5px;
+}
+
+.cloud-storage-file-title-rename-btn {
+    margin-left: 5px;
+}
+
+.cloud-storage-file-title-converting,
+.cloud-storage-file-title-convert-error {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.cloud-storage-file-title-converting {
+    animation: cloud-storage-file-title-sub-icon-spin 1s linear infinite;
+}
+
+@keyframes cloud-storage-file-title-sub-icon-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.flat-color-scheme-dark {
+    .cloud-storage-file-title-converting,
+    .cloud-storage-file-title-convert-error {
+        background-color: var(--grey-11);
+        border-color: var(--grey-11);
+    }
+}

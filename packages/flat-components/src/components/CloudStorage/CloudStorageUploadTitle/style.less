@@ -1,0 +1,36 @@
+.cloud-storage-upload-title {
+    display: flex;
+    align-items: center;
+
+    .ant-progress {
+        font-size: 0; // remove space
+    }
+}
+
+.cloud-storage-upload-title-error {
+    color: var(--danger);
+    font-size: 20px;
+}
+
+.cloud-storage-upload-title-content {
+    margin: 0 8px 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--text);
+}
+
+.cloud-storage-upload-title-count {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1;
+}
+
+.flat-color-scheme-dark {
+    .cloud-storage-upload-title {
+        .ant-progress-circle-trail {
+            stroke: var(--grey-8);
+        }
+    }
+}
