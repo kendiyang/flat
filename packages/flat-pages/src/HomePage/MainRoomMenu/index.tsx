@@ -12,6 +12,7 @@ import { ScheduleRoomBox } from "./ScheduleRoomBox";
 import { joinRoomHandler } from "../../utils/join-room-handler";
 import { errorTips } from "flat-components";
 import CreateAIRoomBox from "./CreateAIRoomBox";
+
 export const MainRoomMenu: FC = () => {
     const roomStore = useContext(RoomStoreContext);
     const globalStore = useContext(GlobalStoreContext);
@@ -27,7 +28,7 @@ export const MainRoomMenu: FC = () => {
 
     return (
         <div className="main-room-menu-container">
-            <Row gutter={24}>
+            <Row>
                 <Col span={6}>
                     <JoinRoomBox onJoinRoom={onJoinRoom} />
                 </Col>
@@ -64,6 +65,7 @@ export const MainRoomMenu: FC = () => {
             errorTips(e);
         }
     }
+
     async function createAIRoom(
         title: string,
         type: RoomType,

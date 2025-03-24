@@ -1,6 +1,86 @@
 .main-room-menu-container {
     font-size: 14px;
     margin-bottom: 16px;
+    padding: 0 16px;
+
+    .ant-row {
+        margin: 0 -8px;
+    }
+
+    .ant-col {
+        padding: 0 8px;
+    }
+}
+
+// 移动端适配
+@media (max-width: 768px) {
+    .main-room-menu-container {
+        margin-bottom: 12px;
+
+        .ant-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 0;
+        }
+
+        .ant-col {
+            width: 100%;
+            padding: 0;
+            margin-bottom: 12px;
+
+            &:last-child,
+            &:nth-last-child(2) {
+                margin-bottom: 0;
+            }
+        }
+
+        // 优化按钮样式
+        .ant-btn {
+            width: 100%;
+            height: auto;
+            min-height: 44px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+
+        // 优化图标大小
+        .homepage-hero-button-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        // 优化文字大小
+        .homepage-hero-button-text {
+            font-size: 12px;
+            line-height: 1.2;
+            text-align: center;
+        }
+    }
+}
+
+// 暗色模式适配
+.flat-color-scheme-dark {
+    .main-room-menu-container {
+        .ant-btn {
+            background: var(--grey-10);
+            border-color: var(--grey-8);
+
+            &:hover {
+                background: var(--grey-9);
+                border-color: var(--grey-7);
+            }
+        }
+    }
 }
 
 .main-room-menu-form {
