@@ -75,17 +75,49 @@ export const HomePage = observer(function HomePage() {
         };
     }, []);
 
-    // 错误边界处理
+    // 添加消息通道错误处理
+    useEffect(() => {
+        const handleUnload = () => {
+            // 清理所有挂起的消息通道
+            if (window.chrome && chrome.runtime && chrome.runtime.lastError) {
+                console.warn('清理消息通道:', chrome.runtime.lastError);
+            }
+        };
+
+        window.addEventListener('beforeunload', handleUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleUnload);
+            handleUnload();
+        };
+    }, []);
+
+    // 优化错误边界处理
     const [hasError, setHasError] = useState(false);
     useEffect(() => {
         const handleError = (error: ErrorEvent) => {
             console.error('HomePage Error:', error);
             setHasError(true);
-            // 可以在这里添加错误上报逻辑
+            // 错误上报
+            if (window.Sentry) {
+                window.Sentry.captureException(error);
+            }
+        };
+
+        const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+            console.error('Unhandled Promise Rejection:', event.reason);
+            // 错误上报
+            if (window.Sentry) {
+                window.Sentry.captureException(event.reason);
+            }
         };
 
         window.addEventListener('error', handleError);
-        return () => window.removeEventListener('error', handleError);
+        window.addEventListener('unhandledrejection', handleUnhandledRejection);
+
+        return () => {
+            window.removeEventListener('error', handleError);
+            window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+        };
     }, []);
 
     if (hasError) {
@@ -99,19 +131,14 @@ export const HomePage = observer(function HomePage() {
         );
     }
 
-    // 优化刷新房间列表
     const refreshRooms = useCallback(
         async function refreshRooms() {
             try {
-                const startTime = performance.now();
                 await Promise.all([
                     sp(roomStore.listRooms(activeTab)),
                     sp(roomStore.listRooms(ListRoomsType.History)),
                 ]);
-                const endTime = performance.now();
-                console.info(`Room refresh time: ${endTime - startTime}ms`);
             } catch (e) {
-                console.error('Room refresh error:', e);
                 errorTips(e);
             }
         },
@@ -140,7 +167,10 @@ export const HomePage = observer(function HomePage() {
         }
     }, [refreshRooms, isLogin, globalStore.requestRefreshRooms]);
 
-    // 使用useMemo优化移动端和桌面端布局
+    const hasHistoryRooms = useMemo(() => {
+        return roomStore.historyRooms && roomStore.historyRooms.length > 0;
+    }, [roomStore.historyRooms]);
+
     const MobileLayoutContent = useMemo(() => (
         <div className="homepage-layout-mobile-container">
             <MainRoomMenu />
@@ -154,7 +184,7 @@ export const HomePage = observer(function HomePage() {
                     onShowHistory={() => setShowHistory(true)}
                 />
             </div>
-            {showHistory && (
+            {showHistory && hasHistoryRooms && (
                 <div className="homepage-layout-mobile-history">
                     <MainRoomHistoryPanel 
                         refreshRooms={refreshRooms} 
@@ -167,12 +197,12 @@ export const HomePage = observer(function HomePage() {
             <RoomNotBeginModal />
             <AppUpgradeModal />
         </div>
-    ), [activeTab, refreshRooms, roomStore, showHistory]);
+    ), [activeTab, refreshRooms, roomStore, showHistory, hasHistoryRooms]);
 
     const DesktopLayoutContent = useMemo(() => (
-        <div className="homepage-layout-horizontal-container">
+        <div className="homepage-layout-vertical-container">
             <MainRoomMenu />
-            <div className="homepage-layout-horizontal-content">
+            <div className="homepage-layout-vertical-content">
                 <MainRoomListPanel
                     activeTab={activeTab}
                     refreshRooms={refreshRooms}
@@ -180,16 +210,18 @@ export const HomePage = observer(function HomePage() {
                     setActiveTab={setActiveTab}
                     isMobile={false}
                 />
-                <MainRoomHistoryPanel 
-                    refreshRooms={refreshRooms} 
-                    roomStore={roomStore}
-                    isMobile={false}
-                />
+                {!isPhone && hasHistoryRooms && (
+                    <MainRoomHistoryPanel 
+                        refreshRooms={refreshRooms} 
+                        roomStore={roomStore}
+                        isMobile={false}
+                    />
+                )}
             </div>
             <RoomNotBeginModal />
             <AppUpgradeModal />
         </div>
-    ), [activeTab, refreshRooms, roomStore]);
+    ), [activeTab, refreshRooms, roomStore, isPhone, hasHistoryRooms]);
 
     return isMobile ? MobileLayoutContent : DesktopLayoutContent;
 });

@@ -26,6 +26,24 @@
     padding-right: 24px;
 }
 
+.homepage-layout-vertical-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 24px;
+    min-width: 0;
+    background: var(--grey-0);
+    overflow-y: auto;
+}
+
+.homepage-layout-vertical-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 0;
+    min-width: 0;
+}
+
 // 移动端布局
 .homepage-layout-mobile-container {
     display: flex;
@@ -70,23 +88,25 @@
     }
 }
 
-.room-list-title-mobile {
+.room-list-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 8px 0;
+    margin-bottom: 16px;
+}
 
-    .ant-btn {
-        padding: 4px 0;
-        height: auto;
-        font-size: 14px;
-        touch-action: manipulation;
-    }
+.room-list-panel {
+    background: var(--grey-0);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .room-history-panel {
-    height: 100%;
+    background: var(--grey-0);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 
     &.mobile {
         padding: 16px;
@@ -142,6 +162,24 @@
 
     .homepage-layout-content {
         padding-top: 12px;
+    }
+
+    .homepage-layout-vertical-container {
+        padding: 0 12px;
+    }
+
+    .homepage-layout-vertical-content {
+        padding: 12px 0;
+        gap: 16px;
+    }
+
+    .room-list-panel,
+    .room-history-panel {
+        padding: 12px;
+    }
+
+    .room-list-title {
+        margin-bottom: 12px;
     }
 
     .main-room-menu-container {
@@ -205,5 +243,15 @@
     .homepage-layout-history {
         border-left-color: var(--grey-8);
         background: var(--grey-12);
+    }
+
+    .homepage-layout-vertical-container {
+        background: var(--grey-12);
+    }
+
+    .room-list-panel,
+    .room-history-panel {
+        background: var(--grey-11);
+        box-shadow: none;
     }
 }
